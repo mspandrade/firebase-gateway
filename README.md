@@ -2,11 +2,11 @@
 A gateway to use Firebase functionalities.
 
 ## Rest api documentation
-----
+
 https://documenter.getpostman.com/view/1083622/RznEJdKu
 
 ## To run
-----
+
 1. Download the admin sdk json file from your project Firebase's
  and put the file in the 'resource' path
 
