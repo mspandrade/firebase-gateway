@@ -1,0 +1,41 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+/bin/.gitignore
+/bin/pom.xml
+/bin/src/main/java/com/mspandrade/starterproject/DemoApplication.class
+/bin/src/main/java/com/mspandrade/starterproject/config/provider/EncoderProvider.class
+/bin/src/main/java/com/mspandrade/starterproject/config/provider/ServiceProvider.class
+/bin/src/main/java/com/mspandrade/starterproject/config/security/AdditionalWebConfiguration.class
+/bin/src/main/java/com/mspandrade/starterproject/config/security/AuthorizationServerConfiguration.class
+/bin/src/main/java/com/mspandrade/starterproject/config/security/ResourceServerConfiguration.class
+/bin/src/main/java/com/mspandrade/starterproject/config/security/SecurityConfiguration.class
+/bin/src/main/java/com/mspandrade/starterproject/controller/UserController.class
+/bin/src/main/java/com/mspandrade/starterproject/model/User.class
+/bin/src/main/java/com/mspandrade/starterproject/repository/UserRepository.class
+/bin/src/main/java/com/mspandrade/starterproject/service/ClientUserDetail.class
+/bin/src/main/java/com/mspandrade/starterproject/service/UserService.class
+/bin/src/main/resources/application.properties
+/bin/src/main/resources/log4j2.properties
+/bin/src/test/java/com/example/demo/DemoApplicationTests.class
