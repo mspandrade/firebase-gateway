@@ -29,7 +29,7 @@ public class FcmMessagingService {
 	
 	public void sendMessage(TopicMessageData topicMessageData) throws InterruptedException, ExecutionException {
 		
-		String response = FirebaseMessaging.getInstance()
+		String response = getFirebaseMessaging()
 	    		.sendAsync(buildMessage(topicMessageData))
 	    		.get();
 	    
@@ -38,11 +38,15 @@ public class FcmMessagingService {
 
 	public void sendMessage(DirectMessageData directMessageData) throws InterruptedException, ExecutionException {
 	    
-	    String response = FirebaseMessaging.getInstance()
+	    String response = getFirebaseMessaging()
 	    		.sendAsync(buildMessage(directMessageData))
 	    		.get();
 	    
 	    log.error(response);
+	}
+	
+	private FirebaseMessaging getFirebaseMessaging() {
+		return FirebaseMessaging.getInstance();
 	}
 	
 	private Notification mapToNotification(NotificationData data) {

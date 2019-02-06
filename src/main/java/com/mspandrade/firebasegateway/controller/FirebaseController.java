@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import com.mspandrade.firebasegateway.data.DirectMessageData;
 import com.mspandrade.firebasegateway.data.TopicMessageData;
+import com.mspandrade.firebasegateway.data.ValidateUserToken;
+import com.mspandrade.firebasegateway.data.reponse.ValidateUserTokenResponse;
+import com.mspandrade.firebasegateway.service.FcmAuthService;
 import com.mspandrade.firebasegateway.service.FcmMessagingService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +25,15 @@ import lombok.extern.slf4j.Slf4j;
 public class FirebaseController {
 
 	private FcmMessagingService fcmMessagingService;
+	private FcmAuthService fcmAuthService;
 	
 	@Autowired
-	public FirebaseController(FcmMessagingService fcmMessagingService) {
+	public FirebaseController(
+			FcmMessagingService fcmMessagingService,
+			FcmAuthService fcmAuthService
+			) {
 		this.fcmMessagingService = fcmMessagingService;
+		this.fcmAuthService = fcmAuthService;
 	}
 	
 	@PostMapping("messages")
@@ -42,7 +51,7 @@ public class FirebaseController {
 			
 			response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 			
-			log.info("ERRO AO ENVIAR MENSAGEM DIRETA PARA " + directMessageData.getClientToken(), e);
+			log.error("ERRO AO ENVIAR MENSAGEM DIRETA PARA " + directMessageData.getClientToken(), e);
 		}
 		
 		return response;
@@ -63,8 +72,40 @@ public class FirebaseController {
 			
 			response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 			
-			log.info("ERRO AO ENVIAR TOPICO DE NOME " + topicMessageData.getTopicName(), e);
+			log.error("ERRO AO ENVIAR TOPICO DE NOME " + topicMessageData.getTopicName(), e);
 		}
+		
+		return response;
+	}
+	
+	@PostMapping("auth/validate")
+	public ResponseEntity<Object> validateUserToken(@RequestBody ValidateUserToken userToken) {
+		
+		ResponseEntity<Object> response = null;
+		
+		try {
+			
+			ValidateUserTokenResponse responseData;
+			
+			responseData = new ValidateUserTokenResponse(
+					fcmAuthService.getUid(userToken.getClientToken())
+					);
+			
+			response = ResponseEntity.ok().body(responseData);
+			
+		} catch (FirebaseAuthException e) {
+			
+			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			
+			log.error("TOKEN INVALIDO " + userToken.getClientToken(), e);
+			
+		}  catch (Exception e) {
+			
+			response = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			
+			log.error("ERRO AO VALIDAR " + userToken.getClientToken(), e);
+		}
+		
 		
 		return response;
 	}
