@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mspandrade.firebasegateway.data.StoreUserRequestData;
 import com.mspandrade.firebasegateway.model.User;
 import com.mspandrade.firebasegateway.service.UserService;
 
@@ -17,7 +18,7 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("users")
-	public User store(@RequestBody User user) {
+	public User store(@RequestBody StoreUserRequestData user) {
 		return userService.save(user);
 	}
 	

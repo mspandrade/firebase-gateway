@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
 
 import lombok.Data;
 
@@ -34,15 +33,6 @@ public class User {
 		setUsername(username);
 		setEmail(email);
 		setPassword(password);
-	}
-	
-	@JsonIgnore
-	public String getPassword() {
-		return password;
-	}
-	@JsonSetter("password")
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	
 }

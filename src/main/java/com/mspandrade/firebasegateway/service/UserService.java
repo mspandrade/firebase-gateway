@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.mspandrade.firebasegateway.data.StoreUserRequestData;
+import com.mspandrade.firebasegateway.data.mapper.UserMapper;
 import com.mspandrade.firebasegateway.model.User;
 import com.mspandrade.firebasegateway.repository.UserRepository;
 
@@ -19,7 +21,9 @@ public class UserService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public User save(User user) {		
+	public User save(StoreUserRequestData userDTO) {	
+		
+		User user = UserMapper.toModel(userDTO);
 		
 		if(!isEncodedPassword(user)) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
