@@ -28,6 +28,7 @@ public class ClientUserDetail implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 		
+		UserDetails detail = null;
 		com.mspandrade.firebasegateway.model.User user = null;
 		
 		if (defaultUser.isEnabled()) {
@@ -40,15 +41,20 @@ public class ClientUserDetail implements UserDetailsService{
 			user = userService.findByUsername(username);	
 		}
 		
-		return new User(
-				user.getUsername(), 
-				user.getPassword(), 
-				true,//enabled 
-				true,//accountNonExpired 
-				true,//credentialsNonExpired 
-				true,//accountNonLocked 
-				getAuthories() //authorities
-				);
+		if (user != null) {
+			
+			detail = new User(
+						user.getUsername(), 
+						user.getPassword(), 
+						true,//enabled 
+						true,//accountNonExpired 
+						true,//credentialsNonExpired 
+						true,//accountNonLocked 
+						getAuthories() //authorities
+					 );
+		}
+		
+		return detail;
 	}
 	
 	private List<GrantedAuthority> getAuthories() {

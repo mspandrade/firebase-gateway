@@ -79,7 +79,7 @@ public class FirebaseController {
 	}
 	
 	@PostMapping("auth/validate")
-	public ResponseEntity<Object> validateUserToken(@RequestBody ValidateUserToken userToken) {
+	public ResponseEntity<Object> validateUserToken(@Validated @RequestBody ValidateUserToken userToken) {
 		
 		ResponseEntity<Object> response = null;
 		

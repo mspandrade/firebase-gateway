@@ -14,8 +14,6 @@ https://documenter.getpostman.com/view/1083622/RznEJdKu
 
 3. Set the database in 'application.properties'
 
-4. Go to root path and in the command line execute the command 'mvn spring-boot:run'
-
 5. Instance a container executing:
 `docker run --name mysql -e MYSQL_ROOT_PASSWORD=0000 -e MYSQL_DATABASE=firebasegateway -e MYSQL_USER=uFirebaseGateway -e MYSQL_PASSWORD=0000 -d mysql:5.6`
 
