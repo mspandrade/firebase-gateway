@@ -1,16 +1,20 @@
 package com.mspandrade.firebasegateway.data;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
+import com.google.firebase.database.annotations.NotNull;
 
 import lombok.Data;
 
 @Data
 public class NotificationData {
 
-	@NotBlank
+	@NotEmpty
+	@NotNull
 	private String title;
 	
-	@NotBlank
+	@NotEmpty
+	@NotNull
 	private String body;
 	
 }

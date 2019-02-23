@@ -1,4 +1,4 @@
-package com.mspandrade.firebasegateway.controller;
+package com.mspandrade.firebasegateway.controller.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,14 +13,13 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.mspandrade.firebasegateway.data.DirectMessageData;
 import com.mspandrade.firebasegateway.data.TopicMessageData;
 import com.mspandrade.firebasegateway.data.ValidateUserToken;
-import com.mspandrade.firebasegateway.data.reponse.ValidateUserTokenResponse;
 import com.mspandrade.firebasegateway.service.FcmAuthService;
 import com.mspandrade.firebasegateway.service.FcmMessagingService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("v1")
 @Slf4j
 public class FirebaseController {
 
@@ -78,20 +77,16 @@ public class FirebaseController {
 		return response;
 	}
 	
-	@PostMapping("auth/validate")
+	@PostMapping("validate-token")
 	public ResponseEntity<Object> validateUserToken(@Validated @RequestBody ValidateUserToken userToken) {
 		
 		ResponseEntity<Object> response = null;
 		
 		try {
 			
-			ValidateUserTokenResponse responseData;
-			
-			responseData = new ValidateUserTokenResponse(
-					fcmAuthService.getUid(userToken.getClientToken())
+			response = ResponseEntity.ok().body(
+					fcmAuthService.getUserInformation(userToken.getClientToken())
 					);
-			
-			response = ResponseEntity.ok().body(responseData);
 			
 		} catch (FirebaseAuthException e) {
 			
